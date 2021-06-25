@@ -1,0 +1,93 @@
+%YAML 1.2
+---
+# See http://www.sublimetext.com/docs/3/syntax.html
+file_extensions:
+  - ec
+scope: source.example-c
+
+contexts:
+  # The prototype context is prepended to all contexts but those setting
+  # meta_include_prototype: false.
+  prototype:
+    - include: comments
+
+  main:
+    # The main context is the initial starting point of our syntax.
+    # Include other contexts from here (or specify them directly).
+    - include: keywords
+    - include: numbers
+    - include: strings
+    - include: volatile
+    - include: nonvolatile
+    - include: integer
+    - include: float
+    - include: packed
+    - include: hex
+    - include: label
+
+  keywords:
+    # Keywords are if, else for and while.
+    # Note that blackslashes don't need to be escaped within single quoted
+    # strings in YAML. When using single quoted strings, only single quotes
+    # need to be escaped: this is done by using two single quotes next to each
+    # other.
+    - match: '\b(model|stack|library|qword|dword|equ|resq|resd|resw|resb|dq|dd|dw|db|executable|writeable|readable|format|entry|use16|use64|use32|GUI|console|MZ|binary|ELF|COFF|MS|PE|fill|asciz|ascii|string|balign|align|noprefix|lcomm|comm|ptr|float|quad|double|word|byte|bss|data|text|macro|import|include|extern|globl|global)\b'
+      scope: keyword.control.example-c
+
+  volatile:
+    - match: '\b(es|ss|ds|cs|r11b|r11w|r11d|r11|r10b|r10w|r10d|r10|r9b|r9w|r9d|r9|r8b|r8w|r8d|r8|ymm5|xmm5|ymm4|xmm4|ymm3|xmm3|ymm2|xmm2|ymm1|xmm1|ymm0|xmm0|dl|dh|dx|edx|rdx|cl|ch|cx|ecx|rcx|al|ah|ax|eax|rax)\b'
+      scope: support.function
+
+  nonvolatile:
+    - match: '\b(ymm14|xmm14|ymm13|xmm13|ymm12|xmm12|ymm11|xmm11|ymm10|xmm10|ymm9|xmm9|ymm8|xmm8|ymm7|xmm7|ymm6|xmm6|mm7|mm6|mm5|mm4|mm3|mm2|mm1|mm0|r15b|r15w|r15d|r15|r14b|r14w|r14d|r14|r13b|r13w|r13d|r13|r12b|r12w|r12d|r12|rip|bp|ebp|rbp|sp|esp|rsp|di|edi|rdi|si|esi|rsi|bl|bh|bx|ebx|rbx|s7|s6|s5|s4|s3|s2|s1|s0)\b'
+      scope: support.constant
+
+  integer:
+    - match: '\b(xor|xlat|xchg|xbts|wait|verw|verr|test|syscall|sub|str|stosw|stosd|stosb|sti|std|stc|smsw|sldt|sidt|shrd|shr|shld|shl|sgdt|setcc|scasw|scasd|scasb|sbb|sar|sal|sahf|ror|rol|retn|retf|ret|repxx|rcr|rcl|pushfd|pushf|pushad|push|popfd|popf|popad|pop|outsd|outs|out|or|not|nop|neg|mul|movzx|movzw|movzq|movzd|movzb|movw|movsx|movsw|movsq|movsd|movsb|movq|movd|movb|movabs|mov|ltr|lss|lsl|loopw|loopd|loop|lodsw|lodsd|lodsb|lock|loadall|lmsw|lldt|lidt|lgs|lgdt|lfs|les|leave|lea|lds|lar|lahf|jz|js|jpo|jpe|jp|jo|jnz|jns|jnp|jno|jnle|jnl|jnge|jng|jne|jnc|jnbe|jnb|jnae|jna|jmp|jle|jl|jge|jg|jecxz|je|jcxz|jcc|jc|jbe|jb|jae|ja|iretx|iret|into|int|insd|ins|inc|in|imul|idiv|ibts|hlt|esc|enter|div|dec|das|daa|cwde|cwd|cmpsw|cmpsd|cmpsb|cmp|cmc|clts|cli|cld|clc|cdq|cbw|call|bts|btr|btc|bt|bsr|bsf|bound|arpl|and|add|adc|aas|aam|aad|aaa)\b'
+      scope: keyword.operator
+
+  float:
+    - match: '\b(fyl2xp1|fyl2x|fxtract|fxch|fxam|fwait|ftst|fsubrp|fsubr|fsubp|fsub|fstsw|fstp|fstenvw|fstenv|fstcw|fst|fsqrt|fscale|fsavew|fsave|frstorw|frstor|frndint|fptan|fprem|fpatan|fnstsw|fnstenvw|fnstenv|fnstcw|fnsavew|fnsave|fnop|fninit|fneni|fndisi|fnclex|fmulp|fmul|fldz|fldpi|fldln2|fldlg2|fldl2t|fldl2e|fldenvw|fldenv|fldcw|fld1|fld|fisubr|fisub|fistp|fist|finit|fincstp|fimul|fild|fidivr|fidiv|ficomp|ficom|fiadd|ffree|feni|fdivrp|fdivr|fdivp|fdiv|fdisi|fdecstp|fcompp|fcomp|fcom|fclex|fchs|fbstp|fbld|faddp|fadd|fabs|f2xm1)\b'
+      scope: support.type
+
+  packed:
+    - match: '\b(punpckldq|punpcklwd|punpcklbw|punpckhdq|punpckhwd|punpckhbw|psubusw|psubusb|psubsw|psubsb|psubd|psubw|psubb|psrlq|psrld|psrlw|psraw|psrad|psllq|pslld|psllw|pmullw|pmulhw|pmaddwd|pcmpgtd|pcmpgtw|pcmpgtb|pcmpeqd|pcmpeqw|pcmpeqb|pxor|por|pandn|pand|paddusw|paddusb|paddsw|paddsb|paddq|paddd|paddw|paddb|packuswb|packsswb|packssdw)\b'
+      scope: keyword.declaration
+
+  numbers:
+    - match: '\b(-)?[0-9.]+\b'
+      scope: constant.numeric.example-c
+
+  hex:
+    - match: '\b0x(-)?[0-9.]+\b'
+      scope: constant.numeric.example-c
+
+  strings:
+    # Strings begin and end with quotes, and use backslashes as an escape
+    # character.
+    - match: '"'
+      scope: punctuation.definition.string.begin.example-c
+      push: inside_string
+
+  inside_string:
+    - meta_include_prototype: false
+    - meta_scope: string.quoted.double.example-c
+    - match: '\.'
+      scope: constant.character.escape.example-c
+    - match: '"'
+      scope: punctuation.definition.string.end.example-c
+      pop: true
+
+  label:
+    - match: '.*:'
+      scope: support.function
+
+  comments:
+    # Comments begin with a '//' and finish at the end of the line.
+    - match: ';'
+      scope: punctuation.definition.comment.example-c
+      push:
+        # This is an anonymous context push for brevity.
+        - meta_scope: comment.line.double-slash.example-c
+        - match: $\n?
+          pop: true
